@@ -29,7 +29,7 @@ class JTSFunctionalities{
 
 
        } catch (ParseException e) {
-           e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+           e.printStackTrace();
        }
 
        Coordinate[] coordinates = new Coordinate[] {
@@ -38,29 +38,21 @@ class JTSFunctionalities{
        int x [] = {12,45,65,-12};
        int y [] = {-59,48,25,45};
 
-       /*Coordinate[] coordinates =
-               new Coordinate[] {new Coordinate(4, 0), new Coordinate(2, 2),
-                       new Coordinate(4,4), new Coordinate(6, 2), new Coordinate(4, 0) };*/
+
 
        GeometryFactory geometryFactory = new GeometryFactory();
        LinearRing linearRing = new GeometryFactory().createLinearRing(coordinates);
        Polygon polygon = new Polygon(linearRing,null,geometryFactory);
 
        System.out.println(polygon.getArea());
-       /*Point point =new Point(new CoordinateSequence(12.01, 54.21) {
-       },geometryFactory);
-        polygon.intersects();*/
+
 
        Coordinate coord = new Coordinate(1, 1);
        Point point = geometryFactory.createPoint(coord);
 
        System.out.println(point.intersection(polygon));
 
-       /*GeometryFactory geometryFactory = new GeometryFactory();
-       LinearRing linearRing = geometryFactory.createLinearRing(coordinates);
-       Polygon polygon = geometryFactory.createPolygon(linearRing,null);
 
-       System.out.println(polygon.getArea());*/
 
 
    }
