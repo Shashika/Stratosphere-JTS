@@ -17,7 +17,8 @@ import java.util.ArrayList;
  */
 public class GeoPath implements Value {
 
-    ArrayList<Coordinate> cordinates = null;
+    private ArrayList<Coordinate> cordinates = null;
+    private ByteArrayOutputStream b;
 
     public GeoPath(){
          cordinates = new ArrayList<Coordinate>();
@@ -45,7 +46,7 @@ public class GeoPath implements Value {
     public void write(DataOutput out) throws IOException {
         out.writeInt(cordinates.size());
 
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        b = new ByteArrayOutputStream();
         ObjectOutputStream o = new ObjectOutputStream(b);
 
         for(Coordinate coordinate : cordinates){
@@ -60,11 +61,15 @@ public class GeoPath implements Value {
         //To change body of implemented methods use File | Settings | File Templates.
         int cordinatesSize = in.readInt();
 
-        ByteArrayInputStream b = new ByteArrayInputStream();
-        ObjectInputStream o = new ObjectInputStream();
+        ByteArrayInputStream bi = new ByteArrayInputStream(b.toByteArray());
+        ObjectInputStream o = new ObjectInputStream(bi);
 
         for(Coordinate coordinate : cordinates){
-            coordinate = (Coordinate)o.readObject();
+            try {
+                coordinate = (Coordinate)o.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
 
